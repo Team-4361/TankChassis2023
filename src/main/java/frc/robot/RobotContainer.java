@@ -51,11 +51,46 @@ public class RobotContainer {
 
         //xbox.x().whileTrue(new DriveToTargetCommand());
 
-        xbox.y().whileTrue(Robot.compressor.runEnd(() -> {
+        xbox.x().whileTrue(Robot.compressor.runEnd(() -> {
             Robot.compressor.activate();
         }, () -> {
             Robot.compressor.deactivate();
         }));
+
+        xbox.povUp().onTrue(Robot.compressor.runOnce(() -> {
+            Robot.compressor.motorPower += 0.05;
+        }));
+
+        xbox.povDown().onTrue(Robot.compressor.runOnce(() -> {
+            Robot.compressor.motorPower -= 0.05;
+        }));
+
+        xbox.leftTrigger().whileTrue(Robot.climber.runEnd(() -> {
+            Robot.climber.moveExtension(-0.2);
+        }, () -> {
+            Robot.climber.moveExtension(0);
+        }));
+
+        xbox.rightTrigger().whileTrue(Robot.climber.runEnd(() -> {
+            Robot.climber.moveExtension(0.2);
+        }, () -> {
+            Robot.climber.moveExtension(0);
+        }));
+
+        xbox.leftBumper().whileTrue(Robot.climber.runEnd(() -> {
+            Robot.climber.moveRotation(-0.2);
+        }, () -> {
+            Robot.climber.moveRotation(0);
+        }));
+
+        xbox.rightBumper().whileTrue(Robot.climber.runEnd(() -> {
+            Robot.climber.moveRotation(0.2);
+        }, () -> {
+            Robot.climber.moveRotation(0);
+        }));
+
+    
+
     }
 
 }

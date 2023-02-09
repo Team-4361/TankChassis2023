@@ -26,4 +26,9 @@ public final class Constants {
     public static class Compressor {
         public static final int COMPRESSOR_ID = 5;
     }
+
+    public static class Climber {
+        public static final int EXTENSION_MOTOR_ID = 2;
+        public static final int ROTATION_MOTOR_ID = 1;
+    }
 }
