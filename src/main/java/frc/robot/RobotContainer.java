@@ -90,6 +90,9 @@ public class RobotContainer {
             Robot.climber.moveRotation(0);
         }));
          */
+        xbox.a().whileTrue(Robot.arm.setPresetCommand(0));
+        xbox.b().whileTrue(Robot.arm.setPresetCommand(1));
+        xbox.y().whileTrue(Robot.arm.setPresetCommand(2));
 
 
     }

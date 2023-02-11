@@ -61,15 +61,24 @@ public class SparkMaxPIDSubsystem extends SubsystemBase {
         return this;
     }
 
+    public SparkMaxPIDSubsystem setPresetTarget(int preset){
+        if (presets != null) {
+            setTarget(presets.getPreset(preset));
+        }
+        return this;
+    }
+
     public Command nextPresetCommand() {
-        return this.runOnce(() -> {
-            nextPresetTarget();
-        });
+        return this.runOnce(this::nextPresetTarget);
     }
 
     public Command prevPresetCommand() {
-        return this.runOnce(() -> {
-            prevPresetTarget();
+        return this.runOnce(this::prevPresetTarget);
+    }
+
+    public Command setPresetCommand(int preset) {
+        return this.runOnce(()->{
+            setPresetTarget(preset);
         });
     }
 

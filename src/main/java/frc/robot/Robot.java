@@ -12,6 +12,7 @@ import frc.robot.subsystems.CameraSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.CompressorSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.fourbar.FourBarArmSubsystem;
 
 
 /**
@@ -27,6 +28,7 @@ public class Robot extends TimedRobot {
     public static CameraSubsystem camera = new CameraSubsystem();
     public static CompressorSubsystem compressor = new CompressorSubsystem();
     public static ClimberSubsystem climber = new ClimberSubsystem();
+    public static FourBarArmSubsystem arm = new FourBarArmSubsystem();
 
 
     /**
