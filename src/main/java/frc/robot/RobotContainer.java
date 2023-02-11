@@ -77,6 +77,7 @@ public class RobotContainer {
             Robot.climber.moveExtension(0);
         }));
 
+        /*
         xbox.leftBumper().whileTrue(Robot.climber.runEnd(() -> {
             Robot.climber.moveRotation(-0.2);
         }, () -> {
@@ -88,8 +89,8 @@ public class RobotContainer {
         }, () -> {
             Robot.climber.moveRotation(0);
         }));
+         */
 
-    
 
     }
 
