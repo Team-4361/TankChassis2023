@@ -33,6 +33,8 @@ public class SparkMaxPIDSubsystem extends SubsystemBase {
 
     private boolean teleopMode;
 
+
+
     /**
      * Sets the Target Rotation that the {@link Encoder} should be set to. While teleoperation mode is disabled,
      * the motor will always spin to match the target.

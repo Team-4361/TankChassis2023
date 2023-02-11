@@ -25,7 +25,7 @@ public final class Constants {
     public static final int BR_MOTOR_ID = 6;
 
     public static class FourBarArmValues {
-        public static final int ARM_MOTOR_ID = 1;
+        public static final int ARM_MOTOR_ID = 2;
         public static final CANSparkMaxLowLevel.MotorType ARM_MOTOR_TYPE = kBrushless;
 
         // The feed forward values for the arm. These can be automatically calculated by using ReCalc. Having
@@ -44,8 +44,8 @@ public final class Constants {
 
         public static final PresetList<Double> ARM_PRESETS = new PresetList<>(
                 0.0, // fully lowered
-                134.0, // first hook
-                268.0 // second hook
+                161.0, // first hook
+                274.0 // second hook
         );
     }
 

@@ -7,6 +7,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
@@ -51,11 +52,14 @@ public class RobotContainer {
 
         //xbox.x().whileTrue(new DriveToTargetCommand());
 
+        /* 
         xbox.x().whileTrue(Robot.compressor.runEnd(() -> {
             Robot.compressor.activate();
         }, () -> {
             Robot.compressor.deactivate();
         }));
+        */
+
 
         xbox.povUp().onTrue(Robot.compressor.runOnce(() -> {
             Robot.compressor.motorPower += 0.05;
@@ -65,6 +69,8 @@ public class RobotContainer {
             Robot.compressor.motorPower -= 0.05;
         }));
 
+
+        /* 
         xbox.leftTrigger().whileTrue(Robot.climber.runEnd(() -> {
             Robot.climber.moveExtension(-0.2);
         }, () -> {
@@ -76,6 +82,7 @@ public class RobotContainer {
         }, () -> {
             Robot.climber.moveExtension(0);
         }));
+        */
 
         /*
         xbox.leftBumper().whileTrue(Robot.climber.runEnd(() -> {
@@ -90,9 +97,30 @@ public class RobotContainer {
             Robot.climber.moveRotation(0);
         }));
          */
+
+        xbox.povLeft().whileTrue(Commands.runEnd(() -> {
+            Robot.compressor.activate();
+        }, () -> {
+            Robot.compressor.deactivate();
+        }));
+
+         SmartDashboard.putNumber("Low Position", 0);
+         SmartDashboard.putNumber("Middle Position", 170);
+         SmartDashboard.putNumber("High Position", 274);
+         SmartDashboard.putNumber("Motor Speed", 1);
+         SmartDashboard.putNumber("P", 0.01);
+         SmartDashboard.putNumber("I", 0);
+         SmartDashboard.putNumber("D", 0);
+
         xbox.a().whileTrue(Robot.arm.setPresetCommand(0));
         xbox.b().whileTrue(Robot.arm.setPresetCommand(1));
         xbox.y().whileTrue(Robot.arm.setPresetCommand(2));
+        xbox.leftStick().onTrue(Robot.arm.resetEncoderCommand());
+        xbox.x().whileTrue(Commands.runEnd(() -> {
+            Robot.arm.translateMotor(xbox.getLeftY());
+        }, () -> {
+            Robot.arm.translateMotor(xbox.getLeftY());
+        }));
 
 
     }

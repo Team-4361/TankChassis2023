@@ -11,7 +11,7 @@ public class CompressorSubsystem extends SubsystemBase {
     
     private final WPI_TalonSRX compTalon;
     
-    public double motorPower = 1;
+    public double motorPower = 0.45;
 
     public CompressorSubsystem() {
         this.compTalon = new WPI_TalonSRX(Compressor.COMPRESSOR_ID);
