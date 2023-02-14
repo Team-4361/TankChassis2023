@@ -13,6 +13,7 @@ import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.CompressorSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.fourbar.FourBarArmSubsystem;
+import frc.robot.subsystems.fourbar.FourBarWristSubsystem;
 
 
 /**
@@ -29,6 +30,7 @@ public class Robot extends TimedRobot {
     public static CompressorSubsystem compressor = new CompressorSubsystem();
     //public static ClimberSubsystem climber = new ClimberSubsystem();
     public static FourBarArmSubsystem arm = new FourBarArmSubsystem();
+    public static FourBarWristSubsystem wrist = new FourBarWristSubsystem();
 
 
     /**
@@ -74,7 +76,9 @@ public class Robot extends TimedRobot {
      * This method is called periodically during operator control.
      */
     @Override
-    public void teleopPeriodic() {}
+    public void teleopPeriodic() {
+        Robot.wrist.move(RobotContainer.xbox.getLeftY()/3);
+    }
 
 
     @Override
