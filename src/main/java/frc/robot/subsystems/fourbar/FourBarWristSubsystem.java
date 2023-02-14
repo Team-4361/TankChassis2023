@@ -9,11 +9,8 @@ import static frc.robot.Constants.FourBarWristValues.WRIST_SERVO_ID;
 
 public class FourBarWristSubsystem extends SubsystemBase {
 
-    private WPI_TalonSRX talon;
-    public FourBarWristSubsystem(){
-        talon = new WPI_TalonSRX(6);
-    }
-
+    private WPI_TalonSRX talon = new WPI_TalonSRX(6);
+    
     public void move(double power){
         talon.set(power);
     }

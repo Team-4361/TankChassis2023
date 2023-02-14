@@ -50,6 +50,12 @@ public class RobotContainer {
             Robot.drive.tankDrive(leftStick.getY(), rightStick.getY());
         }, () -> Robot.drive.tankDrive(0,0)));
 
+        Robot.wrist.setDefaultCommand(Robot.wrist.runEnd(() -> {
+            Robot.wrist.move(xbox.getRightY()/3);
+        }, () -> {
+            Robot.wrist.move(0);
+        }));
+
         //xbox.x().whileTrue(new DriveToTargetCommand());
 
         /* 
@@ -98,7 +104,7 @@ public class RobotContainer {
         }));
          */
 
-        xbox.povLeft().whileTrue(Commands.runEnd(() -> {
+        xbox.leftBumper().whileTrue(Commands.runEnd(() -> {
             Robot.compressor.activate();
         }, () -> {
             Robot.compressor.deactivate();
@@ -115,6 +121,8 @@ public class RobotContainer {
         xbox.a().whileTrue(Robot.arm.setPresetCommand(0));
         xbox.b().whileTrue(Robot.arm.setPresetCommand(1));
         xbox.y().whileTrue(Robot.arm.setPresetCommand(2));
+        xbox.rightBumper().whileTrue(Robot.arm.setPresetCommand(3));
+
         xbox.leftStick().onTrue(Robot.arm.resetEncoderCommand());
         xbox.x().whileTrue(Commands.runEnd(() -> {
             Robot.arm.translateMotor(xbox.getLeftY());

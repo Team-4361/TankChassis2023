@@ -44,6 +44,7 @@ public final class Constants {
 
         public static final PresetList<Double> ARM_PRESETS = new PresetList<>(
                 0.0, // fully lowered
+                30.0, // ground
                 161.0, // first hook
                 274.0 // second hook
         );

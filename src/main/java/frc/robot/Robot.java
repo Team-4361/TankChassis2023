@@ -77,7 +77,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        Robot.wrist.move(RobotContainer.xbox.getLeftY()/3);
+        
     }
 
 
