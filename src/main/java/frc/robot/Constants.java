@@ -56,12 +56,13 @@ public final class Constants {
     }
 
     public static class FourBarWristValues {
-        public static final int WRIST_SERVO_ID = 2;
-
-        public static final int WRIST_ANGLE_TOLERANCE = 2;
+        public static final int WRIST_MOTOR_ID = 2;
         public static final PresetList<Double> WRIST_PRESETS = new PresetList<>(5.0, 10.0, 15.0, 20.0);
-
+        public static final int ENCODER_A = 0;
+        public static final int ENCODER_B = 1;
+        public static  final double GEAR_WRIST_RATIO = 30;
     }
+
     public static class FourBarGripperValues {
         public static final int GRIPPER_MOTOR_VALUE_ID = 0;
 

@@ -53,9 +53,9 @@ public class RobotContainer {
         }, () -> Robot.drive.tankDrive(0,0)));
 
         Robot.wrist.setDefaultCommand(Robot.wrist.runEnd(() -> {
-            Robot.wrist.move(xbox.getRightY()/3);
+            Robot.wrist.setSpeed(xbox.getRightY()/3);
         }, () -> {
-            Robot.wrist.move(0);
+            Robot.wrist.setSpeed(0);
         }));
 
         //xbox.x().whileTrue(new DriveToTargetCommand());
