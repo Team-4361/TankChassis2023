@@ -49,17 +49,17 @@ public final class Constants {
 
         public static final PresetList<Double> ARM_PRESETS = new PresetList<>(
                 0.0, // fully lowered
-                30.0, // ground
-                161.0, // first hook
-                274.0 // second hook
+                -37.0, // ground
+                -177.0, // first hook
+                -299.0 // second hook
         );
     }
 
     public static class FourBarWristValues {
-        public static final int WRIST_MOTOR_ID = 2;
+        public static final int WRIST_MOTOR_ID = 6;
         public static final PresetList<Double> WRIST_PRESETS = new PresetList<>(5.0, 10.0, 15.0, 20.0);
-        public static final int ENCODER_A = 0;
-        public static final int ENCODER_B = 1;
+        public static final int ENCODER_A = 3;
+        public static final int ENCODER_B = 4;
         public static  final double GEAR_WRIST_RATIO = 30;
     }
 
