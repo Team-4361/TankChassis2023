@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.DriveToTargetCommand;
 
+import static frc.robot.Constants.FourBarArmValues.*;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -110,9 +112,10 @@ public class RobotContainer {
             Robot.compressor.deactivate();
         }));
 
-         SmartDashboard.putNumber("Low Position", 0);
-         SmartDashboard.putNumber("Middle Position", 170);
-         SmartDashboard.putNumber("High Position", 274);
+         SmartDashboard.putNumber(DASHBOARD_ZERO, 0);
+         SmartDashboard.putNumber(DASHBOARD_ONE, 30);
+         SmartDashboard.putNumber(DASHBOARD_TWO, 170);
+         SmartDashboard.putNumber(DASHBOARD_THREE, 270);
          SmartDashboard.putNumber("Motor Speed", 1);
          SmartDashboard.putNumber("P", 0.01);
          SmartDashboard.putNumber("I", 0);

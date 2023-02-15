@@ -28,7 +28,6 @@ public class Robot extends TimedRobot {
     public static DriveSubsystem drive = new DriveSubsystem();
     //public static CameraSubsystem camera = new CameraSubsystem();
     public static CompressorSubsystem compressor = new CompressorSubsystem();
-    //public static ClimberSubsystem climber = new ClimberSubsystem();
     public static FourBarArmSubsystem arm = new FourBarArmSubsystem();
     public static FourBarWristSubsystem wrist = new FourBarWristSubsystem();
 

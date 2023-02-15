@@ -42,6 +42,11 @@ public final class Constants {
 
         public static final double ARM_GEAR_RATIO = 686; /*:1*/
 
+        public static final String DASHBOARD_ZERO = "FourBar: Zero Position";
+        public static final String DASHBOARD_ONE = "FourBar: Low Position";
+        public static final String DASHBOARD_TWO = "FourBar: Middle Position";
+        public static final String DASHBOARD_THREE = "FourBar: High Position";
+
         public static final PresetList<Double> ARM_PRESETS = new PresetList<>(
                 0.0, // fully lowered
                 30.0, // ground

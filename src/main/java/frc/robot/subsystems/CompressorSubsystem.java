@@ -31,6 +31,6 @@ public class CompressorSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Motor Power", motorPower);
+        SmartDashboard.putNumber("Pump Motor Power", motorPower);
     }
 }

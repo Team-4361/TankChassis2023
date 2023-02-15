@@ -38,11 +38,11 @@ public class FourBarArmSubsystem extends SparkMaxPIDSubsystem {
         );
 
         PresetList<Double> p = getPresets();
-        /* 
-        p.set(0, SmartDashboard.getNumber("Low Position", 0));
-        p.set(1, SmartDashboard.getNumber("Middle Position", 0));
-        p.set(2, SmartDashboard.getNumber("High Position", 0));
-        */
+
+        p.set(0, SmartDashboard.getNumber(DASHBOARD_ZERO, 0));
+        p.set(1, SmartDashboard.getNumber(DASHBOARD_ONE, 0));
+        p.set(2, SmartDashboard.getNumber(DASHBOARD_TWO, 0));
+        p.set(3, SmartDashboard.getNumber(DASHBOARD_THREE, 0));
 
         setPresets(p);
     }
