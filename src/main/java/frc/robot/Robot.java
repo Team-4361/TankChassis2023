@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.CameraSubsystem;
-import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.CompressorSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.fourbar.FourBarArmSubsystem;
@@ -30,7 +29,6 @@ public class Robot extends TimedRobot {
     public static CompressorSubsystem compressor = new CompressorSubsystem();
     public static FourBarArmSubsystem arm = new FourBarArmSubsystem();
     public static FourBarWristSubsystem wrist = new FourBarWristSubsystem();
-
 
     /**
      * This method is run when the robot is first started up and should be used for any

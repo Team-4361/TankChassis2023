@@ -27,7 +27,7 @@ public final class Constants {
     public static final int BR_MOTOR_ID = 6;
 
     public static class FourBarArmValues {
-        public static final int ARM_MOTOR_ID = 2;
+        public static final int ARM_MOTOR_ID = 5; // 2;
         public static final CANSparkMaxLowLevel.MotorType ARM_MOTOR_TYPE = kBrushless;
 
         // The feed forward values for the arm. These can be automatically calculated by using ReCalc. Having
@@ -62,10 +62,6 @@ public final class Constants {
         public static  final double WRIST_GEAR_RATIO = 30;
     }
 
-    public static class ClimberArmValues {
-        public static final int ROTATION_MOTOR_ID = 0;
-        public static final int EXTENSION_MOTOR_ID = 1;
-    }
 
 
     public static class FrontCamera {
