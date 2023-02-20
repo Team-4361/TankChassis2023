@@ -1,37 +1,27 @@
 package frc.robot.subsystems.fourbar;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
 
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.util.math.GearRatio;
+import frc.robot.util.pid.SparkMaxAngledPIDSubsystem;
 import frc.robot.util.pid.SparkMaxPIDSubsystem;
 
+import static com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushed;
+import static frc.robot.Constants.FourBarArmValues.*;
 import static frc.robot.Constants.FourBarWristValues.*;
 
+public class FourBarWristSubsystem extends SparkMaxAngledPIDSubsystem {
 
-public class FourBarWristSubsystem extends SubsystemBase {
-    private Encoder encoder;
-    public  WPI_TalonSRX motor1;
-    public FourBarWristSubsystem(){
-        encoder = new Encoder(ENCODER_A, ENCODER_B);
-        motor1 = new WPI_TalonSRX(WRIST_MOTOR_ID);
-    }
-    private double degreesToMotorRotations(double degrees) { return (GEAR_WRIST_RATIO / 360) * degrees; }
-    public double getAngle(){
-        return (GEAR_WRIST_RATIO/360)*encoder.getDistance();
-    }
-    public void resetEncoder(){
-        encoder.reset();
-    }
-
-    public void setSpeed(double speed){
-        motor1.set(speed);
-    }
-
-    @Override
-    public void periodic() {
-        SmartDashboard.putNumber("wrist angle",getAngle());
+    public FourBarWristSubsystem() {
+        super(
+                "FourBar Wrist",
+                new GearRatio(WRIST_GEAR_RATIO),
+                new CANSparkMax(WRIST_MOTOR_ID, kBrushed),
+                0.01,
+                0,
+                0
+        );
+        setTolerance(0.1);
+        setPresetSupplier(() -> FOUR_BAR_PRESETS.getCurrentPreset("FourBar Wrist"));
     }
 }

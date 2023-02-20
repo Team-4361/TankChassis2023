@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.DriveToTargetCommand;
 
 import static frc.robot.Constants.FourBarArmValues.*;
+import static frc.robot.Constants.FourBarArmValues.FOUR_BAR_PRESETS;
 
 
 /**
@@ -53,21 +54,10 @@ public class RobotContainer {
         }, () -> Robot.drive.tankDrive(0,0)));
 
         Robot.wrist.setDefaultCommand(Robot.wrist.runEnd(() -> {
-            Robot.wrist.setSpeed(xbox.getRightY()/3);
+            Robot.wrist.translateMotor(xbox.getRightY()/3);
         }, () -> {
-            Robot.wrist.setSpeed(0);
+            Robot.wrist.translateMotor(0);
         }));
-
-        //xbox.x().whileTrue(new DriveToTargetCommand());
-
-        /* 
-        xbox.x().whileTrue(Robot.compressor.runEnd(() -> {
-            Robot.compressor.activate();
-        }, () -> {
-            Robot.compressor.deactivate();
-        }));
-        */
-
 
         xbox.povUp().onTrue(Robot.compressor.runOnce(() -> {
             Robot.compressor.motorPower += 0.05;
@@ -77,54 +67,16 @@ public class RobotContainer {
             Robot.compressor.motorPower -= 0.05;
         }));
 
-
-        /* 
-        xbox.leftTrigger().whileTrue(Robot.climber.runEnd(() -> {
-            Robot.climber.moveExtension(-0.2);
-        }, () -> {
-            Robot.climber.moveExtension(0);
-        }));
-
-        xbox.rightTrigger().whileTrue(Robot.climber.runEnd(() -> {
-            Robot.climber.moveExtension(0.2);
-        }, () -> {
-            Robot.climber.moveExtension(0);
-        }));
-        */
-
-        /*
-        xbox.leftBumper().whileTrue(Robot.climber.runEnd(() -> {
-            Robot.climber.moveRotation(-0.2);
-        }, () -> {
-            Robot.climber.moveRotation(0);
-        }));
-
-        xbox.rightBumper().whileTrue(Robot.climber.runEnd(() -> {
-            Robot.climber.moveRotation(0.2);
-        }, () -> {
-            Robot.climber.moveRotation(0);
-        }));
-         */
-
         xbox.leftBumper().whileTrue(Commands.runEnd(() -> {
             Robot.compressor.activate();
         }, () -> {
             Robot.compressor.deactivate();
         }));
 
-         SmartDashboard.putNumber(DASHBOARD_ZERO, 0);
-         SmartDashboard.putNumber(DASHBOARD_ONE, 30);
-         SmartDashboard.putNumber(DASHBOARD_TWO, 170);
-         SmartDashboard.putNumber(DASHBOARD_THREE, 270);
-         SmartDashboard.putNumber("Motor Speed", 1);
-         SmartDashboard.putNumber("P", 0.01);
-         SmartDashboard.putNumber("I", 0);
-         SmartDashboard.putNumber("D", 0);
-
-        xbox.a().whileTrue(Robot.arm.setPresetCommand(0));
-        xbox.b().whileTrue(Robot.arm.setPresetCommand(1));
-        xbox.y().whileTrue(Robot.arm.setPresetCommand(2));
-        xbox.rightBumper().whileTrue(Robot.arm.setPresetCommand(3));
+        xbox.a().onTrue(Commands.runOnce(() -> FOUR_BAR_PRESETS.setCurrentPreset(0)));
+        xbox.b().onTrue(Commands.runOnce(() -> FOUR_BAR_PRESETS.setCurrentPreset(1)));
+        xbox.y().onTrue(Commands.runOnce(() -> FOUR_BAR_PRESETS.setCurrentPreset(2)));
+        xbox.rightBumper().onTrue(Commands.runOnce(() -> FOUR_BAR_PRESETS.setCurrentPreset(3)));
 
         xbox.leftStick().onTrue(Robot.arm.resetEncoderCommand());
         xbox.x().whileTrue(Commands.runEnd(() -> {
@@ -132,8 +84,6 @@ public class RobotContainer {
         }, () -> {
             Robot.arm.translateMotor(xbox.getLeftY());
         }));
-
-
     }
 
 }
