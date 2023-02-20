@@ -1,18 +1,27 @@
 package frc.robot.subsystems.fourbar;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.revrobotics.CANSparkMax;
 
-import static frc.robot.Constants.FourBarWristValues.WRIST_SERVO_ID;
+import frc.robot.util.math.GearRatio;
+import frc.robot.util.pid.SparkMaxAngledPIDSubsystem;
+import frc.robot.util.pid.SparkMaxPIDSubsystem;
 
-public class FourBarWristSubsystem extends SubsystemBase {
+import static com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushed;
+import static frc.robot.Constants.FourBarArmValues.*;
+import static frc.robot.Constants.FourBarWristValues.*;
 
-    private WPI_TalonSRX talon = new WPI_TalonSRX(6);
-    
-    public void move(double power){
-        talon.set(power);
+public class FourBarWristSubsystem extends SparkMaxAngledPIDSubsystem {
+
+    public FourBarWristSubsystem() {
+        super(
+                "FourBar Wrist",
+                new GearRatio(WRIST_GEAR_RATIO),
+                new CANSparkMax(WRIST_MOTOR_ID, kBrushed),
+                0.01,
+                0,
+                0
+        );
+        setTolerance(0.1);
+        setPresetSupplier(() -> FOUR_BAR_PRESETS.getCurrentPreset("FourBar Wrist"));
     }
-
 }

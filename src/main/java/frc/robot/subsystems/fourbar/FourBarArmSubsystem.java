@@ -17,33 +17,18 @@ import static frc.robot.Constants.FourBarArmValues.*;
 public class FourBarArmSubsystem extends SparkMaxPIDSubsystem {
     public FourBarArmSubsystem() {
         super(
-                "FourBar",
+                "FourBar Arm",
                 ARM_MOTOR_ID,
                 ARM_kP,
                 ARM_kI,
                 ARM_kD
         );
-        setPresets(ARM_PRESETS);
+        setPresetSupplier(() -> FOUR_BAR_PRESETS.getCurrentPreset("FourBar Arm"));
+        setMaxSpeed(0.5);
     }
 
     @Override
     public void periodic() {
         super.periodic();
-
-        setMaxSpeed(SmartDashboard.getNumber("Motor Speed", 1));
-        setPID(
-                SmartDashboard.getNumber("P", 0.05),
-                SmartDashboard.getNumber("I", 0),
-                SmartDashboard.getNumber("D", 0.02)
-        );
-
-        PresetList<Double> p = getPresets();
-
-        p.set(0, SmartDashboard.getNumber(DASHBOARD_ZERO, 0));
-        p.set(1, SmartDashboard.getNumber(DASHBOARD_ONE, 0));
-        p.set(2, SmartDashboard.getNumber(DASHBOARD_TWO, 0));
-        p.set(3, SmartDashboard.getNumber(DASHBOARD_THREE, 0));
-
-        setPresets(p);
     }
 }

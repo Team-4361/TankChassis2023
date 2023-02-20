@@ -1,13 +1,15 @@
 package frc.robot.util.pid;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
+import com.revrobotics.*;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.util.math.GearRatio;
+
+import java.util.function.Supplier;
 
 import static com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushed;
 import static com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless;
@@ -27,13 +29,12 @@ public class SparkMaxPIDSubsystem extends SubsystemBase {
     private final String name;
 
     // TODO: Add preset support to all applicable commands.
-    private PresetList<Double> presets;
+    private Supplier<Double> presetSupplier;
+    private double lastTarget = Double.MAX_VALUE;
 
     private double targetRotation, maxSpeed, tolerance;
 
     private boolean teleopMode;
-
-
 
     /**
      * Sets the Target Rotation that the {@link Encoder} should be set to. While teleoperation mode is disabled,
@@ -44,50 +45,16 @@ public class SparkMaxPIDSubsystem extends SubsystemBase {
      */
     public void setTarget(double rotation) { this.targetRotation = rotation; }
 
-    public SparkMaxPIDSubsystem setPresets(PresetList<Double> presets) {
-        this.presets = presets;
+    public SparkMaxPIDSubsystem setPresetSupplier(Supplier<Double> presets) {
+        this.presetSupplier = presets;
         return this;
     }
 
-    public SparkMaxPIDSubsystem nextPresetTarget() {
-        if (presets != null) {
-            setTarget(presets.nextPreset().getCurrentPreset());
-        }
-        return this;
-    }
-
-    public SparkMaxPIDSubsystem prevPresetTarget() {
-        if (presets != null) {
-            setTarget(presets.prevPreset().getCurrentPreset());
-        }
-        return this;
-    }
-
-    public SparkMaxPIDSubsystem setPresetTarget(int preset){
-        if (presets != null) {
-            setTarget(presets.getPreset(preset));
-        }
-        return this;
-    }
-
-    public Command nextPresetCommand() {
-        return this.runOnce(this::nextPresetTarget);
-    }
-
-    public Command prevPresetCommand() {
-        return this.runOnce(this::prevPresetTarget);
-    }
-
-    public Command setPresetCommand(int preset) {
-        return this.runOnce(()->{
-            setPresetTarget(preset);
-        });
-    }
 
     /** @return The current {@link Encoder} position of the {@link CANSparkMax} motor. */
     public double getRotation() { return encoder.getPosition(); }
 
-    public PresetList<Double> getPresets() { return presets; }
+    public Supplier<Double> getPresetSupplier() { return presetSupplier; }
 
     /** @return The current Target {@link Encoder} position of the {@link CANSparkMax} motor. */
     public double getTargetRotation() { return targetRotation; }
@@ -178,18 +145,23 @@ public class SparkMaxPIDSubsystem extends SubsystemBase {
         return inTolerance(getRotation(), getTargetRotation(), tolerance);
     }
 
-    public SparkMaxPIDSubsystem(String name, CANSparkMax motor, double kP, double kI, double kD) {
-        assert motor.getMotorType() != kBrushed : "PID Motor Cannot Be Brushed!";
 
+    public SparkMaxPIDSubsystem(String name, CANSparkMax motor, double kP, double kI, double kD) {
         this.controller = new PIDController(kP, kI, kD);
 
         this.motor = motor;
         this.name = name;
-        this.encoder = motor.getEncoder();
-        this.targetRotation = 0;
         this.teleopMode = false;
         this.maxSpeed = 1;
         this.tolerance = 0.5;
+
+        if (motor.getMotorType() == kBrushed) {
+            encoder = motor.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 8192);
+        } else {
+            encoder = motor.getEncoder();
+        }
+
+        this.targetRotation = encoder.getPosition();
 
         controller.setP(kP);
         controller.setI(kI);
@@ -210,11 +182,21 @@ public class SparkMaxPIDSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        if (lastTarget == Double.MAX_VALUE) {
+            lastTarget = presetSupplier.get();
+        }
+
         if (!teleopMode && !atTarget())
             motor.set(clamp(controller.calculate(getRotation(), getTargetRotation()), -maxSpeed, maxSpeed));
 
         SmartDashboard.putNumber(name + " Rotation", getRotation());
         SmartDashboard.putNumber(name + " Target Rotation", getTargetRotation());
         SmartDashboard.putBoolean(name + " At Target", atTarget());
+
+        double suppliedTarget = presetSupplier.get();
+        if (lastTarget != presetSupplier.get()) {
+            setTarget(suppliedTarget);
+            lastTarget = suppliedTarget;
+        }
     }
 }

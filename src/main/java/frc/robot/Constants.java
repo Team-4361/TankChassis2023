@@ -6,6 +6,8 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMaxLowLevel;
+
+import frc.robot.util.pid.PresetGroup;
 import frc.robot.util.pid.PresetList;
 
 import static com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless;
@@ -42,36 +44,23 @@ public final class Constants {
 
         public static final double ARM_GEAR_RATIO = 686; /*:1*/
 
-        public static final String DASHBOARD_ZERO = "FourBar: Zero Position";
-        public static final String DASHBOARD_ONE = "FourBar: Low Position";
-        public static final String DASHBOARD_TWO = "FourBar: Middle Position";
-        public static final String DASHBOARD_THREE = "FourBar: High Position";
-
-        public static final PresetList<Double> ARM_PRESETS = new PresetList<>(
+        public static final PresetList ARM_PRESETS = new PresetList(
                 0.0, // fully lowered
-                30.0, // ground
-                161.0, // first hook
-                274.0 // second hook
+                -18.0, // ground
+                -176.0, // first hook
+                -304.0 // second hook
         );
+
+        public static final PresetGroup FOUR_BAR_PRESETS = new PresetGroup()
+            .addPreset("FourBar Arm", ARM_PRESETS)
+            .addPreset("FourBar Wrist", FourBarWristValues.WRIST_PRESETS);
     }
 
     public static class FourBarWristValues {
-        public static final int WRIST_SERVO_ID = 2;
-
-        public static final int WRIST_ANGLE_TOLERANCE = 2;
-        public static final PresetList<Double> WRIST_PRESETS = new PresetList<>(5.0, 10.0, 15.0, 20.0);
-
+        public static final int WRIST_MOTOR_ID = 1;
+        public static final PresetList WRIST_PRESETS = new PresetList(5.0, 10.0, 15.0, 20.0);
+        public static  final double WRIST_GEAR_RATIO = 30;
     }
-    public static class FourBarGripperValues {
-        public static final int GRIPPER_MOTOR_VALUE_ID = 0;
-
-        public static final double GRIPPER_SPEED = 0.5;
-    }
-    public static class ClimberArmValues {
-        public static final int ROTATION_MOTOR_ID = 0;
-        public static final int EXTENSION_MOTOR_ID = 1;
-    }
-
 
     public static class FrontCamera {
         public static final String CAMERA_NAME = "photoncamera";
@@ -79,10 +68,5 @@ public final class Constants {
 
     public static class Compressor {
         public static final int COMPRESSOR_ID = 5;
-    }
-
-    public static class Climber {
-        public static final int EXTENSION_MOTOR_ID = 2;
-        public static final int ROTATION_MOTOR_ID = 1;
     }
 }
