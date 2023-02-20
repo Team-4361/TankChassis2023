@@ -27,7 +27,7 @@ public final class Constants {
     public static final int BR_MOTOR_ID = 6;
 
     public static class FourBarArmValues {
-        public static final int ARM_MOTOR_ID = 5; // 2;
+        public static final int ARM_MOTOR_ID = 2;
         public static final CANSparkMaxLowLevel.MotorType ARM_MOTOR_TYPE = kBrushless;
 
         // The feed forward values for the arm. These can be automatically calculated by using ReCalc. Having
@@ -46,9 +46,9 @@ public final class Constants {
 
         public static final PresetList ARM_PRESETS = new PresetList(
                 0.0, // fully lowered
-                -37.0, // ground
-                -177.0, // first hook
-                -299.0 // second hook
+                -18.0, // ground
+                -176.0, // first hook
+                -304.0 // second hook
         );
 
         public static final PresetGroup FOUR_BAR_PRESETS = new PresetGroup()
@@ -57,12 +57,10 @@ public final class Constants {
     }
 
     public static class FourBarWristValues {
-        public static final int WRIST_MOTOR_ID = 6;
+        public static final int WRIST_MOTOR_ID = 1;
         public static final PresetList WRIST_PRESETS = new PresetList(5.0, 10.0, 15.0, 20.0);
         public static  final double WRIST_GEAR_RATIO = 30;
     }
-
-
 
     public static class FrontCamera {
         public static final String CAMERA_NAME = "photoncamera";
@@ -70,10 +68,5 @@ public final class Constants {
 
     public static class Compressor {
         public static final int COMPRESSOR_ID = 5;
-    }
-
-    public static class Climber {
-        public static final int EXTENSION_MOTOR_ID = 2;
-        public static final int ROTATION_MOTOR_ID = 1;
     }
 }

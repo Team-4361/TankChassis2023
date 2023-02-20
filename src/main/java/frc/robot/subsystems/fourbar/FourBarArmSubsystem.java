@@ -24,6 +24,7 @@ public class FourBarArmSubsystem extends SparkMaxPIDSubsystem {
                 ARM_kD
         );
         setPresetSupplier(() -> FOUR_BAR_PRESETS.getCurrentPreset("FourBar Arm"));
+        setMaxSpeed(0.5);
     }
 
     @Override
